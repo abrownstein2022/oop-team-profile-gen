@@ -80,7 +80,8 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+#10/24/22 alexis commented out dist per ch10 instructions
+#dist
 
 # Gatsby files
 .cache/
