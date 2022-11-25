@@ -1,9 +1,12 @@
 {
-  "scripts": {
-    "test": "jest"
-  },
-  "dependencies": {
-    "inquirer": "^8.2.4",
-    "jest": "^29.2.2"
-  }
+   "scripts": {
+      "test": "clear && jest --verbose"
+   },
+   "dependencies": {
+      "inquirer": "^8.2.4",
+      "jest": "^29.2.2"
+   },
+   "devDependencies": {
+      "@types/inquirer": "^9.0.3"
+   }
 }
