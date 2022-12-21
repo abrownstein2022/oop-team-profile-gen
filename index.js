@@ -22,7 +22,7 @@ const EMPLOYEES = []
 const baseQuestions = [
   {
     message: 'Enter your name: ',
-    name: 'name--',
+    name: 'name',
     type: 'input',
   },
   {
@@ -39,17 +39,25 @@ const baseQuestions = [
 
 //----------------------------------------------------------------------------
 const addManager = async () => {
+  let answers
   try{
 
-    let answers = await inquirer.prompt([,
-      // ...baseQuestions,
+    answers = await inquirer.prompt([
+      ...baseQuestions,
       {
         message: 'Enter your office number: ',
-        // name: 'officeNumber',
+        name: 'officeNumber',
         type: 'input',
       }
     ]);
 
+    // mainMenu()
+  }catch(err){
+    console.log('ERROR PROMPTING USER::: \n', err)
+  }
+
+  try{
+    console.log('answers:', answers)
 
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
@@ -59,9 +67,10 @@ const addManager = async () => {
     EMPLOYEES.push(newManager)
     mainMenu()
   }catch(err){
-    console.log('ERROR::: \n', err)
+    console.log('ERROR CREATING MANAGER CLASS::: \n', err)
   }
 }
+
 const addIntern = () => {}
 const addEngineer = () => {}
 
@@ -92,6 +101,9 @@ const addEmployee = async () => {
 
 //----------------------------------------------------------------------------
 const mainMenu = async () => {
+  if(!EMPLOYEES.length){
+    return addManager()
+  }
   let answers = await inquirer.prompt([
     {
       name: 'main',

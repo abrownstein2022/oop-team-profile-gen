@@ -1,6 +1,7 @@
 {
    "scripts": {
-      "test": "clear && jest --verbose"
+      "test": "clear && jest --verbose",
+      "start": "node index.js"
    },
    "dependencies": {
       "inquirer": "^8.2.4",
