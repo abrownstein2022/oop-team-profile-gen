@@ -1,5 +1,9 @@
 const inquirer = require('inquirer');
 
+const {
+  validateInput
+} = require("./src/utils.js");
+
 // Node v10+ includes a promises module as an alternative to using callbacks with file system methods.
 const { writeFile } = require('fs').promises;
 
@@ -24,16 +28,20 @@ const baseQuestions = [
     message: 'Enter your name: ',
     name: 'name',
     type: 'input',
+    validate: validateInput("name"),  
   },
   {
     message: 'Enter your id: ',
     name: 'id',
     type: 'input',
+    validate: validateInput("id"),  
   },
   {
     message: 'Enter your email: ',
     name: 'email',
     type: 'input',
+    validate: validateInput("email"),  
+
   },
 ]
 
@@ -48,6 +56,7 @@ const addManager = async () => {
         message: 'Enter your office number: ',
         name: 'officeNumber',
         type: 'input',
+        validate: validateInput("office number"), 
       }
     ]);
 
