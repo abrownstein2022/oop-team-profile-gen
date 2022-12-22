@@ -21,26 +21,49 @@ const Intern = require('./lib/Intern.js');
   - if manager - ask for office number
 3. main menu (again)
 */
+//employees array initialized
 const EMPLOYEES = []
+const baseQuestionsManager = [
+  {
+    message: 'Enter manager name: ',
+    name: 'name',
+    type: 'input',
+    validate: validateInput("manager name"),  
+  },
+  {
+    message: 'Enter manager employee id: ',
+    name: 'id',
+    type: 'input',
+    validate: validateInput("manager employee id"),  
+  },
+  {
+    message: 'Enter manager email: ',
+    name: 'email',
+    type: 'input',
+    validate: validateInput("manager email"),  
+
+  },
+]
+
 
 const baseQuestions = [
   {
-    message: 'Enter your name: ',
+    message: 'Enter employee name: ',
     name: 'name',
     type: 'input',
-    validate: validateInput("name"),  
+    validate: validateInput("employee name"),  
   },
   {
-    message: 'Enter your id: ',
+    message: 'Enter employee id: ',
     name: 'id',
     type: 'input',
-    validate: validateInput("id"),  
+    validate: validateInput("employee id"),  
   },
   {
-    message: 'Enter your email: ',
+    message: 'Enter employee email: ',
     name: 'email',
     type: 'input',
-    validate: validateInput("email"),  
+    validate: validateInput("employee email"),  
 
   },
 ]
@@ -51,12 +74,12 @@ const addManager = async () => {
   try{
 
     answers = await inquirer.prompt([
-      ...baseQuestions,
+      ...baseQuestionsManager,
       {
-        message: 'Enter your office number: ',
+        message: 'Enter manager office number: ',
         name: 'officeNumber',
         type: 'input',
-        validate: validateInput("office number"), 
+        validate: validateInput("manager office number"), 
       }
     ]);
 
@@ -82,9 +105,6 @@ const addManager = async () => {
 
 const addIntern = () => {}
 const addEngineer = () => {}
-
-
-
 
 //----------------------------------------------------------------------------
 const addEmployee = async () => {
@@ -121,21 +141,6 @@ const mainMenu = async () => {
       choices: ['Add Employee', 'Exit'],
       default: 'Add Employee'
     }
-    // {
-    //   type: 'input',
-    //   name: '',
-    //   message: 'What is your name?'
-    // },
-    // {
-    //   type: 'input',
-    //   name: 'name',
-    //   message: 'What is your name?'
-    // },
-    // {
-    //   type: 'input',
-    //   name: 'github',
-    //   message: 'Enter your GitHub Username'
-    // }
   ]);
   if(answers.main === 'Exit'){
     if(EMPLOYEES.length === 0){
