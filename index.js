@@ -23,10 +23,34 @@ const Intern = require('./lib/Intern.js');
 */
 //employees array initialized
 const EMPLOYEES = []
+
+//changed name: 'name' to name: 'empname' below to prevent deprecated error
+const baseQuestions = [
+  {
+    message: 'Enter employee name: ',
+    name: 'empname',
+    type: 'input',
+    validate: validateInput("employee name"),  
+  },
+  {
+    message: 'Enter employee id: ',
+    name: 'id',
+    type: 'input',
+    validate: validateInput("employee id"),  
+  },
+  {
+    message: 'Enter employee email: ',
+    name: 'email',
+    type: 'input',
+    validate: validateInput("employee email"),  
+
+  },
+]
+ //only use these questions in addManager so can customize the prompts and messages better
 const baseQuestionsManager = [
   {
     message: 'Enter manager name: ',
-    name: 'name',
+    name: 'empname',
     type: 'input',
     validate: validateInput("manager name"),  
   },
@@ -45,34 +69,10 @@ const baseQuestionsManager = [
   },
 ]
 
-
-const baseQuestions = [
-  {
-    message: 'Enter employee name: ',
-    name: 'name',
-    type: 'input',
-    validate: validateInput("employee name"),  
-  },
-  {
-    message: 'Enter employee id: ',
-    name: 'id',
-    type: 'input',
-    validate: validateInput("employee id"),  
-  },
-  {
-    message: 'Enter employee email: ',
-    name: 'email',
-    type: 'input',
-    validate: validateInput("employee email"),  
-
-  },
-]
-
 //----------------------------------------------------------------------------
 const addManager = async () => {
   let answers
   try{
-
     answers = await inquirer.prompt([
       ...baseQuestionsManager,
       {
@@ -90,7 +90,6 @@ const addManager = async () => {
 
   try{
     console.log('answers:', answers)
-
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
     // create a new manager
@@ -103,8 +102,66 @@ const addManager = async () => {
   }
 }
 
-const addIntern = () => {}
-const addEngineer = () => {}
+const addIntern = async () => {
+  let answers
+  try{
+    answers = await inquirer.prompt([
+      ...baseQuestions,
+      {
+        message: 'Enter school: ',
+        name: 'school',
+        type: 'input',
+        validate: validateInput("school"), 
+      }
+    ]);
+  }catch(err){
+    console.log('ERROR PROMPTING USER::: \n', err)
+  }
+
+  try{
+    console.log('answers:', answers)
+    // pass the whole answers object as "config" to the class
+    // because the structure matches exactly { name: '', id:'', ...}
+    // create a new manager
+    let newIntern = new Intern(answers)
+    // push the new employee to the array
+    EMPLOYEES.push(newIntern)
+    mainMenu()
+  }catch(err){
+    console.log('ERROR CREATING INTERN CLASS::: \n', err)
+  }
+}
+
+const addEngineer = async () => {
+  let answers
+  try{
+    answers = await inquirer.prompt([
+      ...baseQuestions,
+      {
+        message: 'Enter GitHub username: ',
+        name: 'githubUsername',
+        type: 'input',
+        validate: validateInput("GitHub username"), 
+      }
+    ]);
+  }catch(err){
+    console.log('ERROR PROMPTING USER::: \n', err)
+  }
+
+  try{
+    console.log('answers:', answers)
+    // pass the whole answers object as "config" to the class
+    // because the structure matches exactly { name: '', id:'', ...}
+    // create a new manager
+    let newEngineer = new Engineer(answers)
+    // push the new employee to the array
+    EMPLOYEES.push(newEngineer)
+    mainMenu()
+  }catch(err){
+    console.log('ERROR CREATING ENGINEER CLASS::: \n', err)
+  }
+}
+
 
 //----------------------------------------------------------------------------
 const addEmployee = async () => {
@@ -130,9 +187,12 @@ const addEmployee = async () => {
 
 //----------------------------------------------------------------------------
 const mainMenu = async () => {
-  if(!EMPLOYEES.length){
+  //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
+  //check for empty employees array to know the app was just started
+  if(!EMPLOYEES.length){   
     return addManager()
   }
+  //now enter the other employees
   let answers = await inquirer.prompt([
     {
       name: 'main',
@@ -166,7 +226,7 @@ const generateHTML = () => {
 <body>
   <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Hi! My name is ${name}</h1>
+    <h1 class="display-4">Hi! My name is ${empname}</h1>
     <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
     <ul class="list-group">
       <li class="list-group-item">My GitHub username is ${github}</li>
