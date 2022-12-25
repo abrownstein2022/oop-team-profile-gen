@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-
 const {
   validateInput
 } = require("./src/utils.js");
@@ -18,64 +17,74 @@ const Intern = require('./lib/Intern.js');
 2. Add employee: what is your role
   - if intern - ask for school
   - if engineer - ask for github
-  - if manager - ask for office number
+  - if manager - ask for office number (it's not phone number per mockup in instructions)
 3. main menu (again)
 */
 //employees array initialized
-const EMPLOYEES = []
+const EMPLOYEES = [];
 
 //changed name: 'name' to name: 'empname' below to prevent deprecated error
-const baseQuestions = [
+//pass variable so can see employee type in the messages without having to 
+//write separate question sets
+//12/24/22 try to pass emptype to baseQuestions so don't have to repeat same array for Inqurier
+//https://stackoverflow.com/questions/58548293/how-to-pass-parameters-to-a-inquirer-question
+(async function () {
+let emptype = ``; //initialize - below will be set to manager, intern or engineer to not have to repeat questions array
+let baseQuestions = [
+
   {
-    message: 'Enter employee name: ',
+    message: `Enter [emptype] name: `,
     name: 'empname',
     type: 'input',
-    validate: validateInput("employee name"),  
+    validate: validateInput(`${emptype} name`),  
   },
   {
-    message: 'Enter employee id: ',
+    message: `Enter ${emptype} id: `,
     name: 'id',
     type: 'input',
-    validate: validateInput("employee id"),  
+    validate: validateInput(`${emptype} id`),  
   },
   {
-    message: 'Enter employee email: ',
+    message: `Enter ${emptype} email: `,
     name: 'email',
     type: 'input',
-    validate: validateInput("employee email"),  
+    validate: validateInput(`${emptype} email`),  
 
   },
 ]
  //only use these questions in addManager so can customize the prompts and messages better
-const baseQuestionsManager = [
-  {
-    message: 'Enter manager name: ',
-    name: 'empname',
-    type: 'input',
-    validate: validateInput("manager name"),  
-  },
-  {
-    message: 'Enter manager employee id: ',
-    name: 'id',
-    type: 'input',
-    validate: validateInput("manager employee id"),  
-  },
-  {
-    message: 'Enter manager email: ',
-    name: 'email',
-    type: 'input',
-    validate: validateInput("manager email"),  
 
-  },
-]
+// const baseQuestionsManager = [
+//   {
+//     message: 'Enter manager name: ',
+//     name: 'empname',
+//     type: 'input',
+//     validate: validateInput("manager name"),  
+//   },
+//   {
+//     message: 'Enter manager employee id: ',
+//     name: 'id',
+//     type: 'input',
+//     validate: validateInput("manager employee id"),  
+//   },
+//   {
+//     message: 'Enter manager email: ',
+//     name: 'email',
+//     type: 'input',
+//     validate: validateInput("manager email"),  
+
+//   },
+// ]
 
 //----------------------------------------------------------------------------
 const addManager = async () => {
+  emptype = `manager`; 
   let answers
   try{
+
     answers = await inquirer.prompt([
-      ...baseQuestionsManager,
-      {
+      ...baseQuestions,
+      {  
         message: 'Enter manager office number: ',
         name: 'officeNumber',
         type: 'input',
@@ -103,6 +112,7 @@ const addManager = async () => {
 }
 
 const addIntern = async () => {
+  let emptype = "intern"; 
   let answers
   try{
     answers = await inquirer.prompt([
@@ -133,6 +143,7 @@ const addIntern = async () => {
 }
 
 const addEngineer = async () => {
+  let emptype = `engineer`; 
   let answers
   try{
     answers = await inquirer.prompt([
@@ -162,7 +173,6 @@ const addEngineer = async () => {
   }
 }
 
-
 //----------------------------------------------------------------------------
 const addEmployee = async () => {
   // ask for the role, and call other functions to handle the chosen role
@@ -186,6 +196,7 @@ const addEmployee = async () => {
 
 
 //----------------------------------------------------------------------------
+
 const mainMenu = async () => {
   //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
   //check for empty employees array to know the app was just started
@@ -198,8 +209,8 @@ const mainMenu = async () => {
       name: 'main',
       type: 'list',
       message: 'Would you like to add another Employee?',
-      choices: ['Add Employee', 'Exit'],
-      default: 'Add Employee'
+      choices: ['Add Engineer', 'Add Intern','Generate HTML (team build complete)','Exit']
+     // default: 'Add Engineer'
     }
   ]);
   if(answers.main === 'Exit'){
@@ -252,7 +263,7 @@ fs.writeFile('index.html', htmlString)
 // init();
 
 
-mainMenu()
+mainMenu();
 // -------------------------- main menu
 // - Add employee or exit
 // add employee:
@@ -269,3 +280,4 @@ mainMenu()
 // enter office number:
 
 // addManager()
+})();  //end of async function on line 30
