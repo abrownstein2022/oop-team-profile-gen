@@ -35,103 +35,113 @@ async function addEmployee(emptype) {
       message: `Enter ${emptype} name: `,
       name: "empname",
       type: "input",
-      validate: validateInput(`${emptype} name`),
+      //validate: validateInput(`${emptype} name`),
     },
     {
       message: `Enter ${emptype} id: `,
       name: "id",
       type: "input",
-      validate: validateInput(`${emptype} id`),
+      //validate: validateInput(`${emptype} id`),
     },
     {
       message: `Enter ${emptype} email: `,
       name: "email",
       type: "input",
-      validate: validateInput(`${emptype} email`),
+      //validate: validateInput(`${emptype} email`),
     },
   ];
-  //add additional question for manager to base array of questions
-  if ((emptype = "manager")) {
+  //add additional question for manager to base questions
+  if (emptype = "manager") {
     baseQuestions.push = {
       message: "Enter manager office number: ",
       name: "officeNumber",
       type: "input",
-      validate: validateInput("manager office number"),
-    };
-    //xxxxxxxxxxxxxx
-    let answers;
-    try {
-      answers = await inquirer.prompt([...baseQuestions]);
-    } catch (err) {
-      console.log("ERROR PROMPTING USER::: \n", err);
+      //validate: validateInput("manager office number"),
     }
-    try {
-      console.log("answers:", answers);
-      // pass the whole answers object as "config" to the class
-      // because the structure matches exactly { name: '', id:'', ...}
-      //xxxxxxxxxxxx
-      let newManager = new Manager(answers);
-      // push the manager to the array
-      EMPLOYEES.push(newManager);
-      mainMenu();
-    } catch (err) {
-      console.log("ERROR CREATING MANAGER CLASS::: \n", err);
-    }
-  } else if ((emptype = "engineer")) {
+  }
+  //   //xxxxxxxxxxxxxx
+  //   // let answers
+  //   // try {
+  //  const answers = await inquirer.prompt([...baseQuestions],)
+  //    //.then((answers) => {
+  //    // console.log("answers:", answers);
+  //     console.log("answers:",answers);
+
+  //   // } catch (err) {
+  //   //   console.log("ERROR PROMPTING USER::: \n", err);
+  //   // }
+  //   // try {
+
+  //     // pass the whole answers object as "config" to the class
+  //     // because the structure matches exactly { name: '', id:'', ...}
+  //     //xxxxxxxxxxxx
+  //     let newManager = new Manager(answers);
+  //     // push the manager to the array
+  //     EMPLOYEES.push(newManager);
+  //     mainMenu();
+  //   // } catch (err) {
+  //   //   console.log("ERROR CREATING MANAGER CLASS::: \n", err);
+  //   // }
+ if (emptype = "engineer") {
     baseQuestions.push = {
-      message: "Enter GitHub username: ",
+      message: "Enter engineer's GitHub username: ",
       name: "githubUsername",
       type: "input",
       validate: validateInput("GitHub username"),
-    };
-    //xxxxxxxxxxxxxx
-    let answers;
-    try {
-      answers = await inquirer.prompt([...baseQuestions]);
-    } catch (err) {
-      console.log("ERROR PROMPTING USER::: \n", err);
     }
-    try {
-      console.log("answers:", answers);
-      // pass the whole answers object as "config" to the class
-      // because the structure matches exactly { name: '', id:'', ...}
-      //xxxxxxxxxxxx
-      let newEngineer = new Engineer(answers);
-      // push the engineer to the array
-      EMPLOYEES.push(newEngineer);
-      mainMenu();
-    } catch (err) {
-      console.log("ERROR CREATING ENGINEER CLASS::: \n", err);
-    }
-  } else {
-    //intern is only one left
+ }
+    //   //xxxxxxxxxxxxxx
+  //   let answers
+  //   try {
+  //     answers = await inquirer.prompt([...baseQuestions]);
+  //   } catch (err) {
+  //     console.log("ERROR PROMPTING USER::: \n", err);
+  //   }
+  //   try {
+  //     console.log("answers:", answers);
+  //     // pass the whole answers object as "config" to the class
+  //     // because the structure matches exactly { name: '', id:'', ...}
+  //     //xxxxxxxxxxxx
+  //     let newEngineer = new Engineer(answers);
+  //     // push the engineer to the array
+  //     EMPLOYEES.push(newEngineer);
+  //     mainMenu();
+  //   } catch (err) {
+  //     console.log("ERROR CREATING ENGINEER CLASS::: \n", err);
+  //   }
+  // } 
+   if (emptype = "intern") {
     baseQuestions.push = {
-      message: "Enter school: ",
+      message: "Enter intern's school name: ",
       name: "school",
       type: "input",
       validate: validateInput("school"),
-    };
-    //xxxxxxxxxxxxxx
-    let answers;
-    try {
-      answers = await inquirer.prompt([...baseQuestions]);
-    } catch (err) {
-      console.log("ERROR PROMPTING USER::: \n", err);
     }
-    try {
-      console.log("answers:", answers);
-      // pass the whole answers object as "config" to the class
-      // because the structure matches exactly { name: '', id:'', ...}
-      //xxxxxxxxxxxx
-      let newIntern = new Intern(answers);
-      // push the intern to the array
-      EMPLOYEES.push(newIntern);
-      mainMenu();
-    } catch (err) {
-      console.log("ERROR CREATING INTERN CLASS::: \n", err);
-    }
-  }
-}
+  } 
+  console.log(baseQuestions);
+  //infinte loop
+  //mainMenu(); 
+  //   //xxxxxxxxxxxxxx
+  //   let answers;
+  //   try {
+  //     answers = await inquirer.prompt([...baseQuestions]);
+  //   } catch (err) {
+  //     console.log("ERROR PROMPTING USER::: \n", err);
+  //   }
+  //   try {
+  //     console.log("answers:", answers);
+  //     // pass the whole answers object as "config" to the class
+  //     // because the structure matches exactly { name: '', id:'', ...}
+  //     //xxxxxxxxxxxx
+  //     let newIntern = new Intern(answers);
+  //     // push the intern to the array
+  //     EMPLOYEES.push(newIntern);
+  //     mainMenu();
+  //   } catch (err) {
+  //     console.log("ERROR CREATING INTERN CLASS::: \n", err);
+  //   }
+  // }
+}  //end addEmployee function
 
 const mainMenu = async () => {
   //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
@@ -175,7 +185,8 @@ const mainMenu = async () => {
   }
 };
 
-const generateHTML = () => {
+// const generateHTML = () => {
+  function generateHTML(){
   let htmlString = `<!DOCTYPE html>
 <html lang="en">
 <head>
