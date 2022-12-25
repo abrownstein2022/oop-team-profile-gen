@@ -32,6 +32,7 @@ const EMPLOYEES = [];
 
 async function addEmployee(emptype) {
 //emptype will be passed as manager, intern or engineer to not have to repeat base questions array
+console.log(emptype);
 let baseQuestions = [
   {
     message: `Enter ${emptype} name: `,
@@ -80,7 +81,7 @@ let answers
   }catch(err){
     console.log('ERROR CREATING MANAGER CLASS::: \n', err)
   }
-  }else {if (emptype = "engineer"){
+  }else if (emptype = "engineer"){
   baseQuestions.push = {   
     message: 'Enter GitHub username: ',
     name: 'githubUsername',
@@ -123,7 +124,6 @@ let answers
      mainMenu();
   }
 }
-}
 
  //only use these questions in addManager so can customize the prompts and messages better
 
@@ -150,20 +150,20 @@ let answers
 // ]
 
 //---------------------------------------------------------------------------- 
-  const addManager = async () => {
-  emptype = "manager"; 
-  addEmployee(emptype);
-  }
+  // const addManager = async () => {
+  // emptype = "manager"; 
+  // addEmployee(emptype);
+  // }
 
-  const addEngineer = async () => {
-  emptype = "engineer"; 
-  addEmployee(emptype);
-  }
+  // const addEngineer = async () => {
+  // emptype = "engineer"; 
+  // addEmployee(emptype);
+  // }
 
-  const addIntern = async () => {
-  emptype = "intern"; 
-  addEmployee(emptype);   
-  }
+  // const addIntern = async () => {
+  // emptype = "intern"; 
+  // addEmployee(emptype);   
+  // }
 
 //   let answers
 //   try{
@@ -285,7 +285,8 @@ const mainMenu = async () => {
   //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
   //check for empty employees array to know the app was just started
   if(!EMPLOYEES.length){   
-    return addManager();
+    emptype = "manager"; 
+    addEmployee(emptype);
   }
   //now enter the other employees
   let answers = await inquirer.prompt([
@@ -302,9 +303,17 @@ const mainMenu = async () => {
       console.log('No data, exiting...')
       process.exit(0)
     }
-    generateHTML()
-  }else{
-    addEmployee()
+    generateHTML();
+  }else if(answers.main === "Add Engineer"){
+    emptype = "engineer"; 
+    addEmployee(emptype);
+  } else if (answers.main === "Add Intern"){
+    emptype = "intern"; 
+    addEmployee(emptype);
+  } else if (answers.main === "Generate HTML (team build complete)"){
+    generateHTML();
+  } else { //should never happen
+    process.exit(0);
   }
 };
 
