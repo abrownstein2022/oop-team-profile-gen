@@ -19,7 +19,8 @@ const Intern = require("./lib/Intern.js");
 3. main menu (again)
 */
 //employees array initialized
-const EMPLOYEES = [];
+let EMPLOYEES = [];
+let baseQuestions = []; 
 
 //changed name: 'name' to name: 'empname' below to prevent deprecated error
 //pass variable so can see employee type in the messages without having to
@@ -30,7 +31,9 @@ const EMPLOYEES = [];
 async function addEmployee(emptype) {
   //emptype will be passed as manager, intern or engineer to not have to repeat base questions array
   console.log(emptype);
-  let baseQuestions = [
+  console.log("before base questions")
+  //baseQuestions = [];  //re-initialize
+  baseQuestions = [
     {
       message: `Enter ${emptype} name: `,
       name: "empname",
@@ -51,12 +54,13 @@ async function addEmployee(emptype) {
     },
   ];
   //add additional question for manager to base questions
-  if (emptype = "manager") {
+  if (emptype === "manager") {
+    console.log("inside if manager");
     baseQuestions.push = {
       message: "Enter manager office number: ",
       name: "officeNumber",
       type: "input",
-      //validate: validateInput("manager office number"),
+      validate: validateInput("manager office number"),
     }
   }
   //   //xxxxxxxxxxxxxx
@@ -82,7 +86,7 @@ async function addEmployee(emptype) {
   //   // } catch (err) {
   //   //   console.log("ERROR CREATING MANAGER CLASS::: \n", err);
   //   // }
- if (emptype = "engineer") {
+ if (emptype === "engineer") {
     baseQuestions.push = {
       message: "Enter engineer's GitHub username: ",
       name: "githubUsername",
@@ -110,7 +114,7 @@ async function addEmployee(emptype) {
   //     console.log("ERROR CREATING ENGINEER CLASS::: \n", err);
   //   }
   // } 
-   if (emptype = "intern") {
+   if (emptype === "intern") {
     baseQuestions.push = {
       message: "Enter intern's school name: ",
       name: "school",
@@ -147,6 +151,7 @@ const mainMenu = async () => {
   //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
   //check for empty employees array to know the app was just started
   if (!EMPLOYEES.length) {
+    console.log("before manager");
     emptype = "manager";
     addEmployee(emptype);
   }
