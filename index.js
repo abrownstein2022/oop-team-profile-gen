@@ -27,43 +27,80 @@ const Intern = require('./lib/Intern.js');
 
 const generateHTML = () => {
 
-//     let htmlString =  `<!DOCTYPE html>
-//    <html lang="en">
-//    <head>
-//      <meta charset="UTF-8">
-//      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-//      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-//      <title>Document</title>
-//    </head>
-//    <body>
-//      <div class="jumbotron jumbotron-fluid">
-//      <div class="container">
-   
-//        <h1 class="display-4">Hi! My name is ${empname}</h1>
-//        <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-//        <ul class="list-group">
-//          <li class="list-group-item">My GitHub username is ${github}</li>
-//          <li class="list-group-item">LinkedIn: ${linkedin}</li>
-//        </ul>
-//      </div>
-//    </div>
-//    </body>
-//    </html>`;
-//    //fs.writeFile('./dist/team.html', htmlString)
-//    fs.writeFile('./dist/team.html', htmlString, (err) =>
-//    err ? console.log(err) : console.log('Successfully created your team.html file!')
-//  );
-    let htmlString =  `<!DOCTYPE html>
+    let htmlStringX =  `<!DOCTYPE html>
    <html lang="en">
    <head>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="ie=edge">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-     <title>My Team</title>
+     <title>Document</title>
    </head>
-   <center>
-   <h1>My Team</h1>
-   </center>
+   <body>
+     <div class="jumbotron jumbotron-fluid">
+     <div class="container">
+   
+       <h1 class="display-4">Hi! My name is ${empname}</h1>
+       <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
+       <ul class="list-group">
+         <li class="list-group-item">My GitHub username is ${github}</li>
+         <li class="list-group-item">LinkedIn: ${linkedin}</li>
+       </ul>
+     </div>
+   </div>
+   </body>
+   </html>`;
+   //fs.writeFile('./dist/team.html', htmlString)
+   fs.writeFile('./dist/team.html', htmlString, (err) =>
+   err ? console.log(err) : console.log('Successfully created your team.html file!')
+ );
+    let htmlString =  `<!DOCTYPE html>
+   <html lang="en">
+   <head>
+   <title>My Team</title>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+ </head>
+
+ <body>
+   <header class="main-header">
+     <h1>My Team</h1>
+   </header>
+   <main>
+     <section class="card">
+       <header></header>
+       <img src="./assets/images/camera.jpg" alt="camera" />
+       <p>Price: $300</p>
+     </section>
+     <section class="card">
+       <header>Tablet</header>
+       <img src="./assets/images/tablet.jpg" alt="tablet" />
+       <p>Price: $150</p>
+     </section>
+     <section class="card">
+       <header>Toilet Paper</header>
+       <img src="./assets/images/toilet-paper.jpg" alt="toilet paper" />
+       <p>Price: $30</p>
+     </section>
+     <section class="card">
+       <header>Wooden Spoons</header>
+       <img src="./assets/images/wooden-spoons.jpg" alt="wooden spoons" />
+       <p>Price: $10</p>
+     </section>
+     <section class="card">
+       <header>Soap</header>
+       <img src="./assets/images/soap.jpg" alt="soap" />
+       <p>Price: $5</p>
+     </section>
+     <section class="card">
+       <header>Spinning Top</header>
+       <img src="./assets/images/spinning-top.jpg" alt="spinning top" />
+       <p>Price: $3</p>
+     </section>
+   </main>
+ </body>
+
+</html>
 
  
  `;
