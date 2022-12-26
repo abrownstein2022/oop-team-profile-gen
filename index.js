@@ -1,13 +1,16 @@
-const inquirer = require("inquirer");
-const { validateInput } = require("./src/utils.js");
+const inquirer = require('inquirer');
+
+const {
+  validateInput
+} = require("./src/utils.js");
 
 // Node v10+ includes a promises module as an alternative to using callbacks with file system methods.
-const { writeFile } = require("fs").promises;
+const { writeFile } = require('fs').promises;
 
-const Employee = require("./lib/Employee.js");
-const Manager = require("./lib/Manager.js");
-const Engineer = require("./lib/Engineer.js");
-const Intern = require("./lib/Intern.js");
+const Employee = require('./lib/Employee.js')
+const Manager = require('./lib/Manager.js')
+const Engineer = require('./lib/Engineer.js')
+const Intern = require('./lib/Intern.js');
 
 // Use writeFileSync method to use promises instead of a callback function
 /*
@@ -15,184 +18,219 @@ const Intern = require("./lib/Intern.js");
 2. Add employee: what is your role
   - if intern - ask for school
   - if engineer - ask for github
-  - if manager - ask for office number (it's not phone number per mockup in instructions)
+  - if manager - ask for office number not phone number per screen example in instructions
 3. main menu (again)
 */
 //employees array initialized
-let EMPLOYEES = [];
-let baseQuestions = []; 
+const EMPLOYEES = [];
 
 //changed name: 'name' to name: 'empname' below to prevent deprecated error
-//pass variable so can see employee type in the messages without having to
+//pass variable so can see employee type in the messages without having to 
 //write separate question sets
-//12/24/22 try to pass emptype to baseQuestions so don't have to repeat same array for Inqurier
-//https://stackoverflow.com/questions/58548293/how-to-pass-parameters-to-a-inquirer-question
 
-async function addEmployee(emptype) {
-  //emptype will be passed as manager, intern or engineer to not have to repeat base questions array
-  console.log(emptype);
-  console.log("before base questions")
-  //baseQuestions = [];  //re-initialize
-  baseQuestions = [
-    {
-      message: `Enter ${emptype} name: `,
-      name: "empname",
-      type: "input",
-      //validate: validateInput(`${emptype} name`),
-    },
-    {
-      message: `Enter ${emptype} id: `,
-      name: "id",
-      type: "input",
-      //validate: validateInput(`${emptype} id`),
-    },
-    {
-      message: `Enter ${emptype} email: `,
-      name: "email",
-      type: "input",
-      //validate: validateInput(`${emptype} email`),
-    },
-  ];
-  //add additional question for manager to base questions
-  if (emptype === "manager") {
-    console.log("inside if manager");
-    baseQuestions.push = {
-      message: "Enter manager office number: ",
-      name: "officeNumber",
-      type: "input",
-      validate: validateInput("manager office number"),
-    }
+let emptype = "manager"; //manager, intern or engineer
+let baseQuestionsManager = [
+
+  {
+    message: `Enter ${emptype} name: `,
+    name: 'empname',
+    type: 'input',
+    validate: validateInput(`${emptype} name`),  
+  },
+  {
+    message: `Enter ${emptype} id: `,
+    name: 'id',
+    type: 'input',
+    validate: validateInput(`${emptype} id`),  
+  },
+  {
+    message: `Enter ${emptype} email: `,
+    name: 'email',
+    type: 'input',
+    validate: validateInput(`${emptype} email`),  
+
+  },
+]
+ //only use these questions in addManager so can customize the prompts and messages better
+
+const baseQuestions = [
+  {
+    message: 'Enter employee name: ',
+    name: 'empname',
+    type: 'input',
+    validate: validateInput("employee name"),  
+  },
+  {
+    message: 'Enter employee id: ',
+    name: 'id',
+    type: 'input',
+    validate: validateInput("employee id"),  
+  },
+  {
+    message: 'Enter employee email: ',
+    name: 'email',
+    type: 'input',
+    validate: validateInput("employee email"),  
+
+  },
+]
+
+//----------------------------------------------------------------------------
+const addManager = async () => {
+  let answers
+  try{
+    let emptype = "manager"; //manager, intern or engineer
+    answers = await inquirer.prompt([
+      ...baseQuestions,
+      {  
+        message: 'Enter manager office number: ',
+        name: 'officeNumber',
+        type: 'input',
+        validate: validateInput("manager office number"), 
+      }
+    ]);
+
+    // mainMenu()
+  }catch(err){
+    console.log('ERROR PROMPTING USER::: \n', err)
   }
-  //   //xxxxxxxxxxxxxx
-  //   // let answers
-  //   // try {
-  //  const answers = await inquirer.prompt([...baseQuestions],)
-  //    //.then((answers) => {
-  //    // console.log("answers:", answers);
-  //     console.log("answers:",answers);
 
-  //   // } catch (err) {
-  //   //   console.log("ERROR PROMPTING USER::: \n", err);
-  //   // }
-  //   // try {
+  try{
+    console.log('answers:', answers)
+    // pass the whole answers object as "config" to the class
+    // because the structure matches exactly { name: '', id:'', ...}
+    // create a new manager
+    let newManager = new Manager(answers)
+    // push the new employee to the array
+    EMPLOYEES.push(newManager)
+    mainMenu()
+  }catch(err){
+    console.log('ERROR CREATING MANAGER CLASS::: \n', err)
+  }
+}
 
-  //     // pass the whole answers object as "config" to the class
-  //     // because the structure matches exactly { name: '', id:'', ...}
-  //     //xxxxxxxxxxxx
-  //     let newManager = new Manager(answers);
-  //     // push the manager to the array
-  //     EMPLOYEES.push(newManager);
-  //     mainMenu();
-  //   // } catch (err) {
-  //   //   console.log("ERROR CREATING MANAGER CLASS::: \n", err);
-  //   // }
- if (emptype === "engineer") {
-    baseQuestions.push = {
-      message: "Enter engineer's GitHub username: ",
-      name: "githubUsername",
-      type: "input",
-      validate: validateInput("GitHub username"),
-    }
- }
-    //   //xxxxxxxxxxxxxx
-  //   let answers
-  //   try {
-  //     answers = await inquirer.prompt([...baseQuestions]);
-  //   } catch (err) {
-  //     console.log("ERROR PROMPTING USER::: \n", err);
-  //   }
-  //   try {
-  //     console.log("answers:", answers);
-  //     // pass the whole answers object as "config" to the class
-  //     // because the structure matches exactly { name: '', id:'', ...}
-  //     //xxxxxxxxxxxx
-  //     let newEngineer = new Engineer(answers);
-  //     // push the engineer to the array
-  //     EMPLOYEES.push(newEngineer);
-  //     mainMenu();
-  //   } catch (err) {
-  //     console.log("ERROR CREATING ENGINEER CLASS::: \n", err);
-  //   }
-  // } 
-   if (emptype === "intern") {
-    baseQuestions.push = {
-      message: "Enter intern's school name: ",
-      name: "school",
-      type: "input",
-      validate: validateInput("school"),
-    }
-  } 
-  console.log(baseQuestions);
-  //infinte loop
-  //mainMenu(); 
-  //   //xxxxxxxxxxxxxx
-  //   let answers;
-  //   try {
-  //     answers = await inquirer.prompt([...baseQuestions]);
-  //   } catch (err) {
-  //     console.log("ERROR PROMPTING USER::: \n", err);
-  //   }
-  //   try {
-  //     console.log("answers:", answers);
-  //     // pass the whole answers object as "config" to the class
-  //     // because the structure matches exactly { name: '', id:'', ...}
-  //     //xxxxxxxxxxxx
-  //     let newIntern = new Intern(answers);
-  //     // push the intern to the array
-  //     EMPLOYEES.push(newIntern);
-  //     mainMenu();
-  //   } catch (err) {
-  //     console.log("ERROR CREATING INTERN CLASS::: \n", err);
-  //   }
-  // }
-}  //end addEmployee function
+const addIntern = async () => {
+  let answers
+  try{
+    answers = await inquirer.prompt([
+      ...baseQuestions,
+      {
+        message: "Enter intern's school: ",
+        name: 'school',
+        type: 'input',
+        validate: validateInput("intern's school"), 
+      }
+    ]);
+  }catch(err){
+    console.log('ERROR PROMPTING USER::: \n', err)
+  }
 
+  try{
+    console.log('answers:', answers)
+    // pass the whole answers object as "config" to the class
+    // because the structure matches exactly { name: '', id:'', ...}
+    // create a new manager
+    let newIntern = new Intern(answers)
+    // push the new employee to the array
+    EMPLOYEES.push(newIntern)
+    mainMenu()
+  }catch(err){
+    console.log('ERROR CREATING INTERN CLASS::: \n', err)
+  }
+}
+
+const addEngineer = async () => {
+  let answers
+  try{
+    answers = await inquirer.prompt([
+      ...baseQuestions,
+      {
+        message: "Enter engineer's GitHub username: ",
+        name: 'githubUsername',
+        type: 'input',
+        validate: validateInput("engineer's GitHub username"), 
+      }
+    ]);
+  }catch(err){
+    console.log('ERROR PROMPTING USER::: \n', err)
+  }
+
+  try{
+    console.log('answers:', answers)
+    // pass the whole answers object as "config" to the class
+    // because the structure matches exactly { name: '', id:'', ...}
+    // create a new manager
+    let newEngineer = new Engineer(answers)
+    // push the new employee to the array
+    EMPLOYEES.push(newEngineer)
+    mainMenu()
+  }catch(err){
+    console.log('ERROR CREATING ENGINEER CLASS::: \n', err)
+  }
+}
+
+
+//----------------------------------------------------------------------------
+// const addEmployee = async () => {
+//   // ask for the role, and call other functions to handle the chosen role
+//   let answers = await inquirer.prompt([
+//     {
+//       name: 'role',
+//       type: 'list',
+//       choices: ['Manager', 'Engineer', 'Intern'],
+//       default: 'Intern'
+//     }
+//   ]);
+
+
+//   switch(answers.role){
+//     case 'Manager': return addManager()
+//     case 'Engineer': return addIntern()
+//     default: addIntern()
+//   }
+// }
+
+
+
+//----------------------------------------------------------------------------
 const mainMenu = async () => {
   //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
   //check for empty employees array to know the app was just started
-  if (!EMPLOYEES.length) {
-    console.log("before manager");
-    emptype = "manager";
-    addEmployee(emptype);
+  if(!EMPLOYEES.length){   
+    console.log("----ADDING TEAM MANAGER----");
+    return addManager()
   }
   //now enter the other employees
   let answers = await inquirer.prompt([
     {
-      name: "main",
-      type: "list",
-      message: "Would you like to add another Employee?",
-      choices: [
-        "Add Engineer",
-        "Add Intern",
-        "Generate HTML (team build complete)",
-        "Exit",
-      ],
-      // default: 'Add Engineer'
-    },
-  ]);
-  if (answers.main === "Exit") {
-    if (EMPLOYEES.length === 0) {
-      console.log("No data, exiting...");
-      process.exit(0);
+      name: 'main',
+      type: 'list',
+      message: 'Would you like to add another Employee?',
+      choices: ['Add Engineer', 'Add Intern','Generate HTML','Exit'],
+      default: 'Add Engineer'
     }
+  ]);
+  if(answers.main === 'Exit'){
+    if(EMPLOYEES.length === 0){
+      console.log('No data, exiting...')
+      process.exit(0)
+    }
+    console.log('Data exists, generating HTML file...')
     generateHTML();
-  } else if (answers.main === "Add Engineer") {
-    emptype = "engineer";
-    addEmployee(emptype);
-  } else if (answers.main === "Add Intern") {
-    emptype = "intern";
-    addEmployee(emptype);
-  } else if (answers.main === "Generate HTML (team build complete)") {
+  }else if(answers.main === 'Add Engineer'){
+    console.log("----ADDING ENGINEER----");
+    addEngineer();
+  }else if(answers.main === 'Add Intern'){
+    console.log("----ADDING INTERN----");
+    addIntern();
+  }else{
     generateHTML();
-  } else {
-    //should never happen
-    process.exit(0);
   }
 };
 
-// const generateHTML = () => {
-  function generateHTML(){
-  let htmlString = `<!DOCTYPE html>
+const generateHTML = () => {
+
+ let htmlString =  `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -213,10 +251,10 @@ const mainMenu = async () => {
 </div>
 </body>
 </html>`;
-  fs.writeFile("index.html", htmlString);
-};
+fs.writeFile('index.html', htmlString)
+}
 
-// example using writeFileSync as a promise
+// Bonus using writeFileSync as a promise
 // const init = () => {
 //   promptUser()
 //     // Use writeFile method imported from fs.promises to use promises instead of
@@ -228,17 +266,21 @@ const mainMenu = async () => {
 
 // init();
 
-mainMenu();
+
+mainMenu()
 // -------------------------- main menu
-// - on start, prompt to add manager
-// --- addEmployee() handles all emp types
+// - Add employee or exit
+// add employee:
+// ------------------------------- addEmployee()
 // - choose employee type:
-// - add intern
-// - add engineer
+// > manager
+// - intern
+// - engineer
+// => Manager - addManager()
+// ---------------------------------------------- addManager()
 // enter name:
 // enter email:
 // enter id:
-// mgr: enter office number:
-// intern: enter school
-// engineer: enter github username
-// generate HTML file on exit if emps entered or can select to generate HTML file
+// enter office number:
+
+// addManager()
