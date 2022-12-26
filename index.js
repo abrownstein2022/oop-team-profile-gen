@@ -5,7 +5,9 @@ const {
 } = require("./src/utils.js");
 
 // Node v10+ includes a promises module as an alternative to using callbacks with file system methods.
-const { writeFile } = require('fs').promises;
+//const { writeFile } = require('fs').promises;
+
+const fs = require('fs');
 
 const Employee = require('./lib/Employee.js')
 const Manager = require('./lib/Manager.js')
@@ -21,6 +23,57 @@ const Intern = require('./lib/Intern.js');
   - if manager - ask for office number not phone number per screen example in instructions
 3. main menu (again)
 */
+
+
+const generateHTML = () => {
+
+//     let htmlString =  `<!DOCTYPE html>
+//    <html lang="en">
+//    <head>
+//      <meta charset="UTF-8">
+//      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+//      <title>Document</title>
+//    </head>
+//    <body>
+//      <div class="jumbotron jumbotron-fluid">
+//      <div class="container">
+   
+//        <h1 class="display-4">Hi! My name is ${empname}</h1>
+//        <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
+//        <ul class="list-group">
+//          <li class="list-group-item">My GitHub username is ${github}</li>
+//          <li class="list-group-item">LinkedIn: ${linkedin}</li>
+//        </ul>
+//      </div>
+//    </div>
+//    </body>
+//    </html>`;
+//    //fs.writeFile('./dist/team.html', htmlString)
+//    fs.writeFile('./dist/team.html', htmlString, (err) =>
+//    err ? console.log(err) : console.log('Successfully created your team.html file!')
+//  );
+    let htmlString =  `<!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <title>My Team</title>
+   </head>
+   <center>
+   <h1>My Team</h1>
+   </center>
+
+ 
+ `;
+    fs.writeFile('./dist/team.html', htmlString, (err) =>
+   err ? console.log(err) : console.log('Successfully created your team.html file!')
+    );
+
+   }
+
+
 //employees array initialized
 const EMPLOYEES = [];
 
@@ -228,31 +281,7 @@ const mainMenu = async () => {
   }
 };
 
-const generateHTML = () => {
 
- let htmlString =  `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>Document</title>
-</head>
-<body>
-  <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Hi! My name is ${empname}</h1>
-    <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-    <ul class="list-group">
-      <li class="list-group-item">My GitHub username is ${github}</li>
-      <li class="list-group-item">LinkedIn: ${linkedin}</li>
-    </ul>
-  </div>
-</div>
-</body>
-</html>`;
-fs.writeFile('index.html', htmlString)
-}
 
 // Bonus using writeFileSync as a promise
 // const init = () => {
