@@ -1,18 +1,16 @@
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
 
-const {
-  validateInput
-} = require("./src/utils.js");
+const { validateInput } = require("./src/utils.js");
 
 // Node v10+ includes a promises module as an alternative to using callbacks with file system methods.
 //const { writeFile } = require('fs').promises;
 
-const fs = require('fs');
+const fs = require("fs");
 
-const Employee = require('./lib/Employee.js')
-const Manager = require('./lib/Manager.js')
-const Engineer = require('./lib/Engineer.js')
-const Intern = require('./lib/Intern.js');
+const Employee = require("./lib/Employee.js");
+const Manager = require("./lib/Manager.js");
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
 
 // Use writeFileSync method to use promises instead of a callback function
 /*
@@ -24,241 +22,195 @@ const Intern = require('./lib/Intern.js');
 3. main menu (again)
 */
 
-
+//employees array initialized
+const EMPLOYEES = [];
+//need to use HTML string concatenation below since there's no client side to capture using document object 
+//so we have to do it this way using the array with concats
 const generateHTML = () => {
+  let list = "";
+  EMPLOYEES.forEach((item) => {
+    if (item.getRole() === "Manager") {
+      list += `
+     <section class="card">
+     <header>${item.getName()}</header>
+     <p>Manager</p>
+     <p>Id: ${item.getId()}</p>
+     <p>Email: ${item.getEmail()}</p>
+     <p>Email: ${item.getOfficeNumber()}</p>
+     </section>
+     `;
+    }else if(item.getRole() === "Engineer"){
+        list += `
+       <section class="card">
+       <header>${item.getName()}</header>
+       <p>Engineer</p>
+       <p>Id: ${item.getId()}</p>
+       <p>Email: ${item.getEmail()}</p>
+       <p>Email: ${item.getGithub()}</p>
+       </section>
+       `;
+    }else{
+        list += `
+       <section class="card">
+       <header>${item.getName()}</header>
+       <p>Intern</p>
+       <p>Id: ${item.getId()}</p>
+       <p>Email: ${item.getEmail()}</p>
+       <p>Email: ${item.getSchool()}</p>
+       </section>
+       `; 
+    }     
+  });
 
-    let htmlStringX =  `<!DOCTYPE html>
-   <html lang="en">
-   <head>
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-     <title>Document</title>
-   </head>
-   <body>
-     <div class="jumbotron jumbotron-fluid">
-     <div class="container">
-   
-       <h1 class="display-4">Hi! My name is ${empname}</h1>
-       <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-       <ul class="list-group">
-         <li class="list-group-item">My GitHub username is ${github}</li>
-         <li class="list-group-item">LinkedIn: ${linkedin}</li>
-       </ul>
-     </div>
-   </div>
-   </body>
-   </html>`;
-   //fs.writeFile('./dist/team.html', htmlString)
-   fs.writeFile('./dist/team.html', htmlString, (err) =>
-   err ? console.log(err) : console.log('Successfully created your team.html file!')
- );
-    let htmlString =  `<!DOCTYPE html>
+  let htmlString = `<!DOCTYPE html>
    <html lang="en">
    <head>
    <title>My Team</title>
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+   <link rel="stylesheet" type="text/css" href="../src/css/style.css" />
  </head>
 
  <body>
    <header class="main-header">
      <h1>My Team</h1>
    </header>
-   <main>
-     <section class="card">
-       <header></header>
-       <img src="./assets/images/camera.jpg" alt="camera" />
-       <p>Price: $300</p>
-     </section>
-     <section class="card">
-       <header>Tablet</header>
-       <img src="./assets/images/tablet.jpg" alt="tablet" />
-       <p>Price: $150</p>
-     </section>
-     <section class="card">
-       <header>Toilet Paper</header>
-       <img src="./assets/images/toilet-paper.jpg" alt="toilet paper" />
-       <p>Price: $30</p>
-     </section>
-     <section class="card">
-       <header>Wooden Spoons</header>
-       <img src="./assets/images/wooden-spoons.jpg" alt="wooden spoons" />
-       <p>Price: $10</p>
-     </section>
-     <section class="card">
-       <header>Soap</header>
-       <img src="./assets/images/soap.jpg" alt="soap" />
-       <p>Price: $5</p>
-     </section>
-     <section class="card">
-       <header>Spinning Top</header>
-       <img src="./assets/images/spinning-top.jpg" alt="spinning top" />
-       <p>Price: $3</p>
-     </section>
+   <main>${list}
    </main>
  </body>
 
 </html>
-
- 
  `;
-    fs.writeFile('./dist/team.html', htmlString, (err) =>
-   err ? console.log(err) : console.log('Successfully created your team.html file!')
-    );
+  //  fs.writeFile('./dist/team.html', htmlString, (err) =>
+  //  err ? console.log(err) : console.log('Successfully created your team.html file!')
 
-   }
-
-
-//employees array initialized
-const EMPLOYEES = [];
+  fs.writeFile("./dist/team.html", htmlString, (err) =>
+    err
+      ? console.log(err)
+      : console.log("Successfully created your team.html file!")
+  );
+};
 
 //changed name: 'name' to name: 'empname' below to prevent deprecated error
-//pass variable so can see employee type in the messages without having to 
+//pass variable so can see employee type in the messages without having to
 //write separate question sets
 
-let emptype = "manager"; //manager, intern or engineer
-let baseQuestionsManager = [
-
-  {
-    message: `Enter ${emptype} name: `,
-    name: 'empname',
-    type: 'input',
-    validate: validateInput(`${emptype} name`),  
-  },
-  {
-    message: `Enter ${emptype} id: `,
-    name: 'id',
-    type: 'input',
-    validate: validateInput(`${emptype} id`),  
-  },
-  {
-    message: `Enter ${emptype} email: `,
-    name: 'email',
-    type: 'input',
-    validate: validateInput(`${emptype} email`),  
-
-  },
-]
- //only use these questions in addManager so can customize the prompts and messages better
+//only use these questions in addManager so can customize the prompts and messages better
 
 const baseQuestions = [
   {
-    message: 'Enter employee name: ',
-    name: 'empname',
-    type: 'input',
-    validate: validateInput("employee name"),  
+    message: "Enter employee name: ",
+    name: "name",
+    type: "input",
+    validate: validateInput("employee name"),
   },
   {
-    message: 'Enter employee id: ',
-    name: 'id',
-    type: 'input',
-    validate: validateInput("employee id"),  
+    message: "Enter employee id: ",
+    name: "id",
+    type: "input",
+    validate: validateInput("employee id"),
   },
   {
-    message: 'Enter employee email: ',
-    name: 'email',
-    type: 'input',
-    validate: validateInput("employee email"),  
-
+    message: "Enter employee email: ",
+    name: "email",
+    type: "input",
+    validate: validateInput("employee email"),
   },
-]
+];
 
 //----------------------------------------------------------------------------
 const addManager = async () => {
-  let answers
-  try{
+  let answers;
+  try {
     let emptype = "manager"; //manager, intern or engineer
     answers = await inquirer.prompt([
       ...baseQuestions,
-      {  
-        message: 'Enter manager office number: ',
-        name: 'officeNumber',
-        type: 'input',
-        validate: validateInput("manager office number"), 
-      }
+      {
+        message: "Enter manager office number: ",
+        name: "officeNumber",
+        type: "input",
+        validate: validateInput("manager office number"),
+      },
     ]);
 
     // mainMenu()
-  }catch(err){
-    console.log('ERROR PROMPTING USER::: \n', err)
+  } catch (err) {
+    console.log("ERROR PROMPTING USER::: \n", err);
   }
 
-  try{
-    console.log('answers:', answers)
+  try {
+    console.log("answers:", answers);
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
     // create a new manager
-    let newManager = new Manager(answers)
+    let newManager = new Manager(answers);
     // push the new employee to the array
-    EMPLOYEES.push(newManager)
-    mainMenu()
-  }catch(err){
-    console.log('ERROR CREATING MANAGER CLASS::: \n', err)
+    EMPLOYEES.push(newManager);
+    mainMenu();
+  } catch (err) {
+    console.log("ERROR CREATING MANAGER CLASS::: \n", err);
   }
-}
+};
 
 const addIntern = async () => {
-  let answers
-  try{
+  let answers;
+  try {
     answers = await inquirer.prompt([
       ...baseQuestions,
       {
         message: "Enter intern's school: ",
-        name: 'school',
-        type: 'input',
-        validate: validateInput("intern's school"), 
-      }
+        name: "school",
+        type: "input",
+        validate: validateInput("intern's school"),
+      },
     ]);
-  }catch(err){
-    console.log('ERROR PROMPTING USER::: \n', err)
+  } catch (err) {
+    console.log("ERROR PROMPTING USER::: \n", err);
   }
 
-  try{
-    console.log('answers:', answers)
+  try {
+    console.log("answers:", answers);
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
     // create a new manager
-    let newIntern = new Intern(answers)
+    let newIntern = new Intern(answers);
     // push the new employee to the array
-    EMPLOYEES.push(newIntern)
-    mainMenu()
-  }catch(err){
-    console.log('ERROR CREATING INTERN CLASS::: \n', err)
+    EMPLOYEES.push(newIntern);
+    mainMenu();
+  } catch (err) {
+    console.log("ERROR CREATING INTERN CLASS::: \n", err);
   }
-}
+};
 
 const addEngineer = async () => {
-  let answers
-  try{
+  let answers;
+  try {
     answers = await inquirer.prompt([
       ...baseQuestions,
       {
         message: "Enter engineer's GitHub username: ",
-        name: 'githubUsername',
-        type: 'input',
-        validate: validateInput("engineer's GitHub username"), 
-      }
+        name: "githubUsername",
+        type: "input",
+        validate: validateInput("engineer's GitHub username"),
+      },
     ]);
-  }catch(err){
-    console.log('ERROR PROMPTING USER::: \n', err)
+  } catch (err) {
+    console.log("ERROR PROMPTING USER::: \n", err);
   }
 
-  try{
-    console.log('answers:', answers)
+  try {
+    console.log("answers:", answers);
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
     // create a new manager
-    let newEngineer = new Engineer(answers)
+    let newEngineer = new Engineer(answers);
     // push the new employee to the array
-    EMPLOYEES.push(newEngineer)
-    mainMenu()
-  }catch(err){
-    console.log('ERROR CREATING ENGINEER CLASS::: \n', err)
+    EMPLOYEES.push(newEngineer);
+    mainMenu();
+  } catch (err) {
+    console.log("ERROR CREATING ENGINEER CLASS::: \n", err);
   }
-}
-
+};
 
 //----------------------------------------------------------------------------
 // const addEmployee = async () => {
@@ -272,7 +224,6 @@ const addEngineer = async () => {
 //     }
 //   ]);
 
-
 //   switch(answers.role){
 //     case 'Manager': return addManager()
 //     case 'Engineer': return addIntern()
@@ -280,45 +231,41 @@ const addEngineer = async () => {
 //   }
 // }
 
-
-
 //----------------------------------------------------------------------------
 const mainMenu = async () => {
   //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
   //check for empty employees array to know the app was just started
-  if(!EMPLOYEES.length){   
+  if (!EMPLOYEES.length) {
     console.log("----ADDING TEAM MANAGER----");
-    return addManager()
+    return addManager();
   }
   //now enter the other employees
   let answers = await inquirer.prompt([
     {
-      name: 'main',
-      type: 'list',
-      message: 'Would you like to add another Employee?',
-      choices: ['Add Engineer', 'Add Intern','Generate HTML','Exit'],
-      default: 'Add Engineer'
-    }
+      name: "main",
+      type: "list",
+      message: "Would you like to add another Employee?",
+      choices: ["Add Engineer", "Add Intern", "Generate HTML", "Exit"],
+      default: "Add Engineer",
+    },
   ]);
-  if(answers.main === 'Exit'){
-    if(EMPLOYEES.length === 0){
-      console.log('No data, exiting...')
-      process.exit(0)
+  if (answers.main === "Exit") {
+    if (EMPLOYEES.length === 0) {
+      console.log("No data, exiting...");
+      process.exit(0);
     }
-    console.log('Data exists, generating HTML file...')
+    console.log("Data exists, generating HTML file...");
     generateHTML();
-  }else if(answers.main === 'Add Engineer'){
+  } else if (answers.main === "Add Engineer") {
     console.log("----ADDING ENGINEER----");
     addEngineer();
-  }else if(answers.main === 'Add Intern'){
+  } else if (answers.main === "Add Intern") {
     console.log("----ADDING INTERN----");
     addIntern();
-  }else{
+  } else {
     generateHTML();
   }
 };
-
-
 
 // Bonus using writeFileSync as a promise
 // const init = () => {
@@ -332,8 +279,7 @@ const mainMenu = async () => {
 
 // init();
 
-
-mainMenu()
+mainMenu();
 // -------------------------- main menu
 // - Add employee or exit
 // add employee:
