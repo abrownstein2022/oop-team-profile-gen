@@ -27,38 +27,38 @@ const EMPLOYEES = [];
 //so we have to do it this way using the array with concats
 const generateHTML = () => {
   let list = "";
-  EMPLOYEES.forEach((item) => {
-    if (item.getRole() === "Manager") {
+  EMPLOYEES.forEach((emp) => {
+    if (emp.getRole() === "Manager") {
       list += `
      <section class="card">
-     <header>${item.getName()}
+     <header>${emp.getName()}
      <p><i class="fa fa-coffee"></i> Manager</p>
      </header>
-     <p>Id: ${item.getId()}</p>
-     <p>Email: ${item.getEmail()}</p>
-     <p>Office Number: ${item.getOfficeNumber()}</p>
+     <p>Id: ${emp.getId()}</p>
+     <p>Email: <a href="mailto:${emp.getEmail()}">${emp.getEmail()}</a></p>
+     <p>Office Number: ${emp.getOfficeNumber()}</p>
      </section>
      `;
-    }else if(item.getRole() === "Engineer"){
+    }else if(emp.getRole() === "Engineer"){
         list += `
        <section class="card">
-       <header>${item.getName()}
+       <header>${emp.getName()}
        <p><i class="fa fa-glasses"></i> Engineer</p>
        </header>
-       <p>Id: ${item.getId()}</p>
-       <p>Email: ${item.getEmail()}</p>
-       <p>GitHub: ${item.getGitHub()}</p>
+       <p>Id: ${emp.getId()}</p>
+       <p>Email: <a href="mailto:${emp.getEmail()}">${emp.getEmail()}</a></p>
+       <p>GitHub: ${emp.getGitHub()}</p>
        </section>
        `;
     }else{
         list += `
        <section class="card">
-       <header>${item.getName()}
+       <header>${emp.getName()}
        <p><i class="fa fa-user-graduate"></i> Intern</p>
        </header>
-       <p>Id: ${item.getId()}</p>
-       <p>Email: ${item.getEmail()}</p>
-       <p>School: ${item.getSchool()}</p>
+       <p>Id: ${emp.getId()}</p>
+       <p>Email: <a href="mailto:${emp.getEmail()}">${emp.getEmail()}</a></p>
+       <p>School: ${emp.getSchool()}</p>
        </section>
        `; 
     }     
