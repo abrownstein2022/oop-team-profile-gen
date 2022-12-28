@@ -90,7 +90,7 @@ const generateHTML = () => {
   fs.writeFile("./dist/team.html", htmlString, (err) =>
     err
       ? console.log(err)
-      : console.log("Successfully created your team.html file!")
+      : console.log("Successfully created your team.html file in the /dist folder!")
   );
 };
 
@@ -188,7 +188,7 @@ const addEngineer = async () => {
       ...baseQuestions,
       {
         message: "Enter engineer's GitHub username: ",
-        name: "githubUsername",
+        name: "gitHubUserName",
         type: "input",
         validate: validateInput("engineer's GitHub username"),
       },
