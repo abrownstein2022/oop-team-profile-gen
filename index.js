@@ -7,7 +7,6 @@ const { validateInput } = require("./src/utils.js");
 
 const fs = require("fs");
 
-const Employee = require("./lib/Employee.js");
 const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
@@ -15,7 +14,7 @@ const Intern = require("./lib/Intern.js");
 // Use writeFileSync method to use promises instead of a callback function
 /*
 1. main menu - (options: Add employee, Exit)
-2. Add employee: what is your role
+2. Add employee based on role
   - if intern - ask for school
   - if engineer - ask for github
   - if manager - ask for office number not phone number per screen example in instructions
@@ -32,31 +31,34 @@ const generateHTML = () => {
     if (item.getRole() === "Manager") {
       list += `
      <section class="card">
-     <header>${item.getName()}</header>
-     <p>Manager</p>
+     <header>${item.getName()}
+     <p><i class="fas fa-coffee"></i> Manager</p>
+     </header>
      <p>Id: ${item.getId()}</p>
      <p>Email: ${item.getEmail()}</p>
-     <p>Email: ${item.getOfficeNumber()}</p>
+     <p>Office Number: ${item.getOfficeNumber()}</p>
      </section>
      `;
     }else if(item.getRole() === "Engineer"){
         list += `
        <section class="card">
-       <header>${item.getName()}</header>
-       <p>Engineer</p>
+       <header>${item.getName()}
+       <p><i class="fas fa-glasses"></i> Engineer</p>
+       </header>
        <p>Id: ${item.getId()}</p>
        <p>Email: ${item.getEmail()}</p>
-       <p>Email: ${item.getGithub()}</p>
+       <p>GitHub: ${item.getGitHub()}</p>
        </section>
        `;
     }else{
         list += `
        <section class="card">
-       <header>${item.getName()}</header>
-       <p>Intern</p>
+       <header>${item.getName()}
+       <p><i class="fas fa-graduate"></i> Intern</p>
+       </header>
        <p>Id: ${item.getId()}</p>
        <p>Email: ${item.getEmail()}</p>
-       <p>Email: ${item.getSchool()}</p>
+       <p>School: ${item.getSchool()}</p>
        </section>
        `; 
     }     
@@ -69,11 +71,12 @@ const generateHTML = () => {
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <link rel="stylesheet" type="text/css" href="../src/css/style.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
  </head>
 
  <body>
    <header class="main-header">
-     <h1>My Team</h1>
+     <h1><i class="fas fa-vcard"></i>  My Team</h1>
    </header>
    <main>${list}
    </main>
@@ -90,12 +93,6 @@ const generateHTML = () => {
       : console.log("Successfully created your team.html file!")
   );
 };
-
-//changed name: 'name' to name: 'empname' below to prevent deprecated error
-//pass variable so can see employee type in the messages without having to
-//write separate question sets
-
-//only use these questions in addManager so can customize the prompts and messages better
 
 const baseQuestions = [
   {
@@ -119,6 +116,8 @@ const baseQuestions = [
 ];
 
 //----------------------------------------------------------------------------
+//present base questions with spread operator and only add the additional question
+//for each employee type 
 const addManager = async () => {
   let answers;
   try {
@@ -212,26 +211,6 @@ const addEngineer = async () => {
   }
 };
 
-//----------------------------------------------------------------------------
-// const addEmployee = async () => {
-//   // ask for the role, and call other functions to handle the chosen role
-//   let answers = await inquirer.prompt([
-//     {
-//       name: 'role',
-//       type: 'list',
-//       choices: ['Manager', 'Engineer', 'Intern'],
-//       default: 'Intern'
-//     }
-//   ]);
-
-//   switch(answers.role){
-//     case 'Manager': return addManager()
-//     case 'Engineer': return addIntern()
-//     default: addIntern()
-//   }
-// }
-
-//----------------------------------------------------------------------------
 const mainMenu = async () => {
   //Acceptance criteria state that after starting the app, first prompt is to enter team's manager info
   //check for empty employees array to know the app was just started
@@ -267,7 +246,7 @@ const mainMenu = async () => {
   }
 };
 
-// Bonus using writeFileSync as a promise
+// other example: using writeFileSync as a promise
 // const init = () => {
 //   promptUser()
 //     // Use writeFile method imported from fs.promises to use promises instead of

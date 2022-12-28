@@ -18,9 +18,9 @@ main {
   display: flex;
   /* Forces elements to the next line if they don't fit */
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 60px;
-  background: #13293d;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(187, 50, 50);
   color: #fff;
 }
 
@@ -34,8 +34,9 @@ main {
 
 .card header {
   padding: 20px;
-  background: #13293d;
+  background: #1b85e8;
   color: #fff;
+  font-weight:bold;
 }
 
 .card img {
