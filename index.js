@@ -224,11 +224,11 @@ const mainMenu = async () => {
       name: "main",
       type: "list",
       message: "Would you like to add another employee?",
-      choices: ["Add Engineer", "Add Intern", "Done - Generate HTML", "Exit"],
+      choices: ["Add Engineer", "Add Intern", "Done - Exit and Generate HTML file"],
       default: "Add Engineer",
     },
   ]);
-  if (answers.main === "Exit") {
+  if (answers.main === "Done - Exit and Generate HTML file") {
     if (EMPLOYEES.length === 0) {
       console.log("No data, exiting...");
       process.exit(0);
@@ -241,7 +241,7 @@ const mainMenu = async () => {
   } else if (answers.main === "Add Intern") {
     console.log("----ADDING INTERN----");
     addIntern();
-  } else {
+  } else {  //should never happen
     generateHTML();
   }
 };
