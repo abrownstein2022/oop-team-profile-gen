@@ -32,7 +32,7 @@ const generateHTML = () => {
       list += `
      <section class="card">
      <header>${item.getName()}
-     <p><i class="fas fa-coffee"></i> Manager</p>
+     <p><i class="fa fa-coffee"></i> Manager</p>
      </header>
      <p>Id: ${item.getId()}</p>
      <p>Email: ${item.getEmail()}</p>
@@ -43,7 +43,7 @@ const generateHTML = () => {
         list += `
        <section class="card">
        <header>${item.getName()}
-       <p><i class="fas fa-glasses"></i> Engineer</p>
+       <p><i class="fa fa-glasses"></i> Engineer</p>
        </header>
        <p>Id: ${item.getId()}</p>
        <p>Email: ${item.getEmail()}</p>
@@ -54,7 +54,7 @@ const generateHTML = () => {
         list += `
        <section class="card">
        <header>${item.getName()}
-       <p><i class="fas fa-graduate"></i> Intern</p>
+       <p><i class="fa fa-user-graduate"></i> Intern</p>
        </header>
        <p>Id: ${item.getId()}</p>
        <p>Email: ${item.getEmail()}</p>
@@ -76,7 +76,7 @@ const generateHTML = () => {
 
  <body>
    <header class="main-header">
-     <h1><i class="fas fa-vcard"></i>  My Team</h1>
+     <h1><i class="fa fa-thumbs-up"></i>  My Team</h1>
    </header>
    <main>${list}
    </main>
