@@ -47,7 +47,7 @@ const generateHTML = () => {
        </header>
        <p>Id: ${emp.getId()}</p>
        <p>Email: <a href="mailto:${emp.getEmail()}">${emp.getEmail()}</a></p>
-       <p>GitHub: <a href="https://github.com/${emp.getGitHub()}">${emp.getGitHub()}</a></p>       
+       <p>GitHub: <a href="https://github.com/${emp.getGitHub()}" target="_blank">${emp.getGitHub()}</a></p>       
        </section>
        `;
     }else{
