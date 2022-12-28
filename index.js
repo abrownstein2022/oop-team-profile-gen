@@ -47,7 +47,7 @@ const generateHTML = () => {
        </header>
        <p>Id: ${emp.getId()}</p>
        <p>Email: <a href="mailto:${emp.getEmail()}">${emp.getEmail()}</a></p>
-       <p>GitHub: ${emp.getGitHub()}</p>
+       <p>GitHub: <a href="https://github.com/${emp.getGitHub()}">${emp.getGitHub()}</a></p>       
        </section>
        `;
     }else{
@@ -223,8 +223,8 @@ const mainMenu = async () => {
     {
       name: "main",
       type: "list",
-      message: "Would you like to add another Employee?",
-      choices: ["Add Engineer", "Add Intern", "Generate HTML", "Exit"],
+      message: "Would you like to add another employee?",
+      choices: ["Add Engineer", "Add Intern", "Done - Generate HTML", "Exit"],
       default: "Add Engineer",
     },
   ]);
