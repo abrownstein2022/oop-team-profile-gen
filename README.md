@@ -13,9 +13,10 @@
 - [Questions](#questions)
 
 ## Description
-Your task is to build a Node.js command-line application that takes in information about employees on a software engineering team, then generates an HTML webpage that displays summaries for each person. Testing is key to making code maintainable, so you’ll also write a unit test for every part of your code and ensure that it passes each test.
+The task for this project was to build a `Node.js` command-line application that takes in information about employees on a software engineering team, then generates an HTML webpage that displays summaries for each person. Since testing is key to making code maintainable, I also had to write a unit test for every part of our code and ensure that it passes each test using `Jest.` I used `Inquirer v8.2.4` for the command-line question prompts to collect user input.  I used `fs` for writing to the file system.
 
-Because this application won’t be deployed, you’ll need to provide a link to a walkthrough video that demonstrates its functionality and all of the tests passing. You’ll need to submit a link to the video AND add it to the readme of your project.
+Because this application isn't being deployed, I was also required to provide a link to a walkthrough video that demonstrates its functionality and all of the tests passing. 
+
 
 **User Story**
 
@@ -51,84 +52,52 @@ THEN I exit the application, and the HTML is generated
 ```
 
 ## Installation
-<!-- audience is other developers -->
-
-We added  "scripts": {
-    "test": "jest"
-  },
-to the json file so we can just enter test at the command line to run testing.
-Any time there is a repetitive action, add to scripts section.  If scripts
-section doesn't exist, add it like we did here.
-Clear added so will clear terminal and then run jest
-&& is telling the terminal to run 2 completely separate scripts
-{
-  "scripts": {
-    "test": "clear && jest"
-  },
-  "dependencies": {
-    "inquirer": "^8.2.4",
-    "jest": "^29.2.2"
-  }
-}
-ALso, when doing testing, click on "auto attach" in blue at bottom of terminal so we don't see so much extra garbage on screen
-XXXXX we had to remove this because Jest does not use import yet - only in experimental stage now in Jest
-So we put back to require logic
-Below we added "type": "module" which tells node to use import and not require 
-{
-  "type": "module",
-  "scripts": {
-    "test": "jest"
-  },
-  "dependencies": {
-    "inquirer": "^8.2.4",
-    "jest": "^29.2.2"
-  }
-}
-
-1. Clone this GitHub repo https://github.com/abrownstein2022/ch11-express-note-taker:
+1. Clone this GitHub repo https://github.com/abrownstein2022/ch10-oop-team-profile-gen
 <!-- Check out the gh cli tool from github -->
 ```bash
-$ gh repo clone /abrownstein2022/ch11-express-note-taker
+$ gh repo clone /abrownstein2022/ch10-oop-team-profile-gen
 ```
-2. From the terminal, install npm and uuid:
+2. From the terminal, install dependencies, inquirer v8.2.4 and jest:
 
 ```bash
-$ npm install
-$ npm uuid
+$ npm i
+$ npm i jest
+$ npm i inquirer@8.2.4
 ```
-
-<!-- [] implies user input 
- mysql> restaurant_mgr < C:\[filename].sql
--->
-
-3. Start the local server and watch for file changes to automatically restart server:
-```bash
-$ npm run watch 
-```
-
-4. Open Express or a browser to test any changes you make to the application after cloning.
 
 ## Usage
 
-1. Open the app using Express or Heroku https://ch11-express-notes-taker.herokuapp.com
-2. From the landing page, click on the notes page to see a page with existing notes on the left-hand column, plus empty fields
-to enter a new note title and text.
-3. Press the Save icon to save this info and see it in the left-hand column.
-4. When you click on the Write icon in the top navigation, I see empty fields to enter a new note title and text. 
-5. Press the Delete icon to delete a note.
+1. Start the application:
+```bash
+$ node index.js
+```
+2. The first prompts will be for the team manager information, including manager name, employee id, email and 
+office number.  You may only enter one team manager.
+3. After you have entered the manager info, a main menu appears so you can select to add Engineers and/or Interns.  
+You may enter as many Engineers and Interns as needed.
+4. When you have entered all the team members' information, click on the menu option "Done - Exit and Generate HTML file".  
+At this point, the application will generate the team.html file in the /dist folder, and exit the application.
+5. Go to the /dist folder.
+6. Right-click on the team.html file that was created by the application and select "Open in Default Browser". 
+7. To test the application using Jest and the JavaScript files in the _tests_ folder:
+```bash
+$ npm run test 
+```
 
 **Please review to the screenshots below to view the application:**
 
-![example image get started page](./public/images/ch11-express-screen1-get-started-pg.jpg)
-![example image note entry screen](./public/images/ch11-express-screen2-note-entry-screen.jpg)
-![example image note entry screen save](./public/images/ch11-express-screen3-note-entry-screen-save.jpg)
-![example image see new note to left after save](./public/images/ch11-express-screen4-note-to-left-after-save.jpg)
-![example image see 2 notes to left after another save](./public/images/ch11-express-screen5-notes-to-left-after-save.jpg)
-![example image click on note to left to see rendered in note entry page](./public/images/ch11-express-screen6-click-on-note-to-left-to-see-on-right.jpg)
-![example image click on delete icon to delete note](./public/images/ch11-express-screen7-click-on-delete.jpg)
-![example image see note was deleted](./public/images/ch11-express-screen8-after-delete.jpg)
+![example image get started page](./assets/images/ch11-express-screen1-get-started-pg.jpg)
+![example image note entry screen](./assets/images/ch11-express-screen2-note-entry-screen.jpg)
+![example image note entry screen save](./assets/images/ch11-express-screen3-note-entry-screen-save.jpg)
+![example image see new note to left after save](./assets/images/ch11-express-screen4-note-to-left-after-save.jpg)
+![example image see 2 notes to left after another save](./assets/images/ch11-express-screen5-notes-to-left-after-save.jpg)
+![example image click on note to left to see rendered in note entry page](./assets/images/ch11-express-screen6-click-on-note-to-left-to-see-on-right.jpg)
+![example image click on delete icon to delete note](./assets/images/ch11-express-screen7-click-on-delete.jpg)
+![example image see note was deleted](./assets/images/ch11-express-screen8-after-delete.jpg)
 
-demo video here
+Please review the demonstration video below.
+
+
 
 ## Credits
 
@@ -171,12 +140,14 @@ _underline_
 1. all ones - auttomatic numbering
 Feattures for *future* development
  -->
-**The main features in this project are:**<br>
-1. Uses Express.js and uuid
-1. Deployed on Heroku
-1. GET, POST and DELETE routes for retrieving, adding and deleteing note data
-1. Dates-fns to format the order date in vieworder.handlebars (https://date-fns.org/)
-1. Necessary folder structure 
+**The main features found in this project are:**<br>
+1. Uses node.js, fs (file system), inquirer v8.2.4 and Jest.
+1. Contains a demonstration video and example screenshots.
+1. Uses regex validation for email address.
+1. Validates that all other user input values entered are not empty.
+1. Tests all conditions of the application from code in the _tests_ folder, using Jest.
+1. Attractive web page design with flexboxes/cards setup
+1. Proper folder structure 
 1. Professional README
 
 ## How-to-Contribute
@@ -195,7 +166,7 @@ I can be reached at alexis@drdatabase.com.
 
 This GitHub repo can be found at:
   
-https://github.com/abrownstein2022/ch11-express-note-taker
+https://github.com/abrownstein2022/ch10-oop-team-profile-gen
  
 
 
