@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 
-const { validateInput } = require("./src/utils.js");
+const { validateInput, isEmailValid } = require("./src/utils.js");
 
 // Node v10+ includes a promises module as an alternative to using callbacks with file system methods.
 //const { writeFile } = require('fs').promises;
@@ -111,7 +111,21 @@ const baseQuestions = [
     message: "Enter employee email: ",
     name: "email",
     type: "input",
-    validate: validateInput("employee email"),
+    //validate: validateInput("xxx"),
+
+
+   //got function from here: https://stackoverflow.com/questions/65189877/how-can-i-validate-that-a-user-input-their-email-when-using-inquirer-npm 
+   //got regex from here:  https://emailregex.com/
+   // /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    validate: function(email)
+    {
+        // Regex mail check (return true if valid mail)
+        if(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email) === true){
+        return  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+        }else{
+        return "Incorrect email format. Please re-enter";
+        }
+    }
   },
 ];
 
