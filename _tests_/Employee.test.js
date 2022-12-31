@@ -1,8 +1,5 @@
 const Employee = require ("../lib/Employee.js");
-
 //https://jestjs.io/docs/expect
-
-
 //Jest is testing suite.  Tells Jest to create a test and show "Pending" if nothing else.
 describe.only("Employee", () => {
     //just used for pending test later
@@ -14,7 +11,7 @@ describe.only("Employee", () => {
         expect(greg.getName())  .toBe("employee name")
         expect(greg.getId())    .toBe(0)
         expect(greg.getEmail()) .toBe("example@gmail.com")
-        expect(greg.getRole())  .toBe("employee")        
+        expect(greg.getRole())  .toBe("Employee")        
     })
 
     it("Uses the provided name in config", async ()=>{
@@ -22,9 +19,9 @@ describe.only("Employee", () => {
         expect(greg.getName())  .toBe("Greg")    
     })
 
-    it("Uses the provided email  in config", async ()=>{
-        let greg = new Employee({ email: 'greg@me.com'});
-        expect(greg.getEmail())  .toBe("greg@me.com")    
+    it("Uses the provided email in config", async ()=>{
+        let greg = new Employee({ email: 'greg@gmail.com'});
+        expect(greg.getEmail())  .toBe("greg@gmail.com")    
     })
 
     it("Uses the provided id in config", async ()=>{
