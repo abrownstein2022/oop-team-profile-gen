@@ -152,7 +152,7 @@ const addManager = async () => {
   }
 
   try {
-    console.log("answers:", answers);
+   // console.log("answers:", answers);
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
     // create a new manager
@@ -182,7 +182,7 @@ const addIntern = async () => {
   }
 
   try {
-    console.log("answers:", answers);
+   // console.log("answers:", answers);
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
     // create a new manager
@@ -212,7 +212,7 @@ const addEngineer = async () => {
   }
 
   try {
-    console.log("answers:", answers);
+    //console.log("answers:", answers);
     // pass the whole answers object as "config" to the class
     // because the structure matches exactly { name: '', id:'', ...}
     // create a new manager

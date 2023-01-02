@@ -146,6 +146,8 @@ Feattures for *future* development
 1. Uses regex validation for email address.
 1. Validates that all other user input values entered are not empty.
 1. Tests all conditions of the application from code in the _tests_ folder, using Jest.
+1. Click on employee's email address to open it in your default email program.
+1. Click on engineer's GitHub username to open their GitHub profile in a new tab.
 1. Attractive web page design with flexboxes/cards setup
 1. Proper folder structure 
 1. Professional README
