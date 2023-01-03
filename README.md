@@ -86,17 +86,19 @@ $ npm run test
 
 **Please review to the screenshots below to view the application:**
 
-![example image get started page](./assets/images/ch11-express-screen1-get-started-pg.jpg)
-![example image note entry screen](./assets/images/ch11-express-screen2-note-entry-screen.jpg)
-![example image note entry screen save](./assets/images/ch11-express-screen3-note-entry-screen-save.jpg)
-![example image see new note to left after save](./assets/images/ch11-express-screen4-note-to-left-after-save.jpg)
-![example image see 2 notes to left after another save](./assets/images/ch11-express-screen5-notes-to-left-after-save.jpg)
-![example image click on note to left to see rendered in note entry page](./assets/images/ch11-express-screen6-click-on-note-to-left-to-see-on-right.jpg)
-![example image click on delete icon to delete note](./assets/images/ch11-express-screen7-click-on-delete.jpg)
-![example image see note was deleted](./assets/images/ch11-express-screen8-after-delete.jpg)
+![example image test results in Jest](./assets/ch10-1jest-test-results.png)
+![example image email regex validation](./assets/ch10-2show-email-regex-validattion.png)
+![example image validation for blank data entry](./assets/ch10-3show-validation-for-blank-entry.png)
+![example image screen when data entry is complete](./assets/ch10-4show-data-entry-done.png)
+![example image screen showing exit and generate HTML menu](./assets/ch10-5show-exit-and-gen-html-file-done.png)
+![example image generated html file](./assets/ch10-6html-code-generated.png)
+![example image html code displayed in browser after generation](./assets/ch10-7html-code-in-browser.png)
 
-Please review the demonstration video below.
+Please review the Jest testing done in the demo video below:<br>
+![demonstration video of test testing](./assets/ch10-demo-video-jest-tests.gif)
 
+Please review the team profile generator application functionality in the demo video below:<br>
+![demonstration video of application functionality](./assets/ch10-demo-video-team-generator.gif)
 
 
 ## Credits
@@ -148,7 +150,7 @@ Feattures for *future* development
 1. Tests all conditions of the application from code in the _tests_ folder, using Jest.
 1. Click on employee's email address to open it in your default email program.
 1. Click on engineer's GitHub username to open their GitHub profile in a new tab.
-1. Attractive web page design with flexboxes/cards setup
+1. Attractive web page design with responsive flexboxes/cards setup
 1. Proper folder structure 
 1. Professional README
 
