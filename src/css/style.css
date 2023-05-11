@@ -5,7 +5,7 @@
 body {
   font-family: Arial;
   margin: 0;
-/* prevents entire body from too skinny for responsiveness 
+  /* prevents entire body from too skinny for responsiveness 
 use min, max and calc for any value (margin, padding, width, etc) to control
 the way the screen changes depending on screen size/dimensions/orientation
 */
@@ -31,25 +31,25 @@ main {
 }
 
 .card {
-  flex: 1 0 0; 
+  flex: 1 0 0;
   padding: 10px;
   text-align: center;
   border-style: solid;
-  border-width:thin;
+  border-width: thin;
   /* margin - have some separation between the cards */
   margin: 8px;
   /* set size for cards below */
   width: 25px;
   height: 325px;
   /* for responsiveness, give css rendering engine min width so won't go too low so looks bad */
-  min-width:200px;
+  min-width: 200px;
 }
 
 .card header {
   padding: 10px;
   background: #1b85e8;
   color: #fff;
-  font-weight:bold;
+  font-weight: bold;
 }
 
 /* .card img {

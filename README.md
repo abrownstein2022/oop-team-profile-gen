@@ -1,4 +1,4 @@
-# Module 10-Object-Oriented Programming Challenge: Team Profile Generator
+# Object-Oriented Programming: Team Profile Generator
 ![license](https://img.shields.io/badge/license-MIT-black)
 ## Table of Contents
 
@@ -52,10 +52,10 @@ THEN I exit the application, and the HTML is generated
 ```
 
 ## Installation
-1. Clone this GitHub repo https://github.com/abrownstein2022/ch10-oop-team-profile-gen
+1. Clone this GitHub repo https://github.com/abrownstein2022/oop-team-profile-gen
 <!-- Check out the gh cli tool from github -->
 ```bash
-$ gh repo clone /abrownstein2022/ch10-oop-team-profile-gen
+$ gh repo clone /abrownstein2022/oop-team-profile-gen
 ```
 2. From the terminal, install dependencies, inquirer v8.2.4 and jest:
 
@@ -170,7 +170,7 @@ I can be reached at alexis@drdatabase.com.
 
 This GitHub repo can be found at:
   
-https://github.com/abrownstein2022/ch10-oop-team-profile-gen
+https://github.com/abrownstein2022/oop-team-profile-gen
  
 
 
